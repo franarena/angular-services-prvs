@@ -1,10 +1,13 @@
 import { Product } from "@shared/product.model";
-import { productsArray } from "./products-data";
 import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root'})
 export class ProductsService{
-    getProducts(): Product[]{
-        return productsArray;
+    constructor(private httpClient: HttpClient){ }
+
+    getProducts(): Observable<Product[]>{
+        return this.httpClient.get<Product[]>('/api/products');
     }
 }
